@@ -1,18 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo Material Bibliográfico</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="<c:url value='/style.css'/>">
 </head>
 <body>
     <header class="header">
         <h1>📖 Material Bibliográfico y Documental</h1>
         <nav>
-            <a href="index.html">Inicio</a>
-            <a href="proyectos.html">Proyectos Comunitarios</a>
-            <a href="bibliograficos.html" class="active">Material Bibliográfico</a>
+            <a href="index.jsp">Inicio</a>
+            <a href="proyectos.jsp">Proyectos Comunitarios</a>
+            <a href="bibliograficos.jsp" class="active">Material Bibliográfico</a>
         </nav>
     </header>
 
@@ -34,7 +36,14 @@
             </section>
     </main>
     <footer class="footer">
-        <p>© 2025 Repositorio Académico Estudiantil. Prototipo Funcional.</p>
+        <p>
+            © 2025 Repositorio Académico Estudiantil. Prototipo Funcional.
+            | Fecha de Acceso: 
+            <% 
+                java.util.Date fecha = new java.util.Date();
+                out.print(fecha); 
+            %>
+        </p>
     </footer>
 </body>
 </html>

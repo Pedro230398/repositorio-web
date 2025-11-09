@@ -1,1 +1,1 @@
-web: java -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
+web: java -Dfile.encoding=UTF-8 -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
