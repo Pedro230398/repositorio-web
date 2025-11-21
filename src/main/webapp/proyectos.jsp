@@ -35,6 +35,24 @@
         .btn-add-project:hover {
             background-color: #cc5200;
         }
+        .btn-delete {
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .btn-delete:hover {
+            background-color: #c9302c;
+        }
+        .mensaje-exito {
+            background:#dff0d8; color:#3c763d; padding:12px; border-radius:6px; margin-bottom:18px; border:1px solid #d6e9c6;
+        }
+        .mensaje-error {
+            background:#f2dede; color:#a94442; padding:12px; border-radius:6px; margin-bottom:18px; border:1px solid #ebccd1;
+        }
     </style>
 </head>
 <body>
@@ -48,6 +66,14 @@
     </header>
 
     <main class="container">
+        <c:choose>
+            <c:when test="${param.mensaje == 'eliminado'}">
+                <div class="mensaje-exito">Proyecto eliminado correctamente.</div>
+            </c:when>
+            <c:when test="${param.mensaje == 'error'}">
+                <div class="mensaje-error">Ocurrió un error al eliminar el proyecto.</div>
+            </c:when>
+        </c:choose>
         <!-- Botón para agregar nuevo proyecto -->
         <div style="margin-bottom: 30px; text-align: left;">
             <a href="agregar-proyecto.jsp" class="btn-add-project"> Agregar Nuevo Proyecto</a>
@@ -76,6 +102,12 @@
                                 <p><a href="${proyecto.enlaces}" target="_blank" class="card-link"> Ver Recurso</a></p>
                             </c:if>
                             <p><strong>Contacto:</strong> <a href="mailto:${proyecto.correoContacto}">${proyecto.correoContacto}</a></p>
+
+                            <!-- Botón eliminar proyecto -->
+                            <form method="post" action="eliminar-proyecto.jsp" onsubmit="return confirm('¿Confirmar eliminación del proyecto? Esta acción no se puede deshacer.');" style="margin-top:8px;">
+                                <input type="hidden" name="id" value="${proyecto.id}" />
+                                <button type="submit" class="btn-delete">Eliminar</button>
+                            </form>
                         </div>
                     </c:forEach>
                 </c:when>
