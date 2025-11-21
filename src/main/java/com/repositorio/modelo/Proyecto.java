@@ -27,7 +27,7 @@ public class Proyecto implements Serializable {
     private String autores;
     // Año de realización del proyecto (campo obligatorio, debe ser único)
     private int anio;
-    // Categoría del proyecto (Proyecto, Trabajo Especial Grado, Investigación, etc.)
+    // Categoría del proyecto (Proyecto, Trabajo Especial de Grado, Investigación, etc.)
     private String categoria;
     // Descripción detallada del proyecto (campo obligatorio)
     private String resumen;
@@ -118,7 +118,7 @@ public class Proyecto implements Serializable {
         return categoria;
     }
     
-    // FUNCIÓN: Asignar la categoría (Proyecto, Trabajo Especial Grado, Investigación, etc.)
+    // FUNCIÓN: Asignar la categoría (Proyecto, Trabajo Especial de Grado, Investigación, etc.)
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }

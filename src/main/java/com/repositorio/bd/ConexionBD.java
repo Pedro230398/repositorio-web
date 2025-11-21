@@ -249,7 +249,7 @@ public class ConexionBD {
         // VALIDACIÓN: Verificar si ya existe un proyecto con la misma tripleta
         // (nombre, anio, enlace). Solo se considera duplicado si los tres coinciden.
         if (existeProyectoDuplicado(proyecto.getNombreProyecto(), proyecto.getAnio(), proyecto.getEnlaces())) {
-            System.err.println("Error: Ya existe un proyecto con el mismo nombre, año y enlace");
+            System.err.println("Error: Ya Existe un Proyecto Similar");
             return false;
         }
         
@@ -431,7 +431,7 @@ public class ConexionBD {
     /**
      * MÉTODO: obtenerProyectosPorCategoria(String categoria)
      * FUNCIÓN: Obtener todos los proyectos de una CATEGORÍA específica (READ BY CATEGORY)
-     * PARÁMETRO: categoria - Nombre de la categoría (ej: "Proyecto", "Trabajo Especial Grado")
+     * PARÁMETRO: categoria - Nombre de la categoría (ej: "Proyecto", "Trabajo Especial de Grado")
      * RETORNA: List<Proyecto> - Lista de proyectos de esa categoría ordenados por fecha
      * USO: Se usa para filtrar proyectos por tipo
      */

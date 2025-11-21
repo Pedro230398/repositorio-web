@@ -47,7 +47,7 @@
             
             // Validar unicidad por TRIPLETA: nombre + año + enlace
             if (ConexionBD.existeProyectoDuplicado(nombreProyecto.trim(), anio, nuevoProyecto.getEnlaces())) {
-                mensaje = "✗ Error: Ya existe un proyecto con el mismo nombre, año y enlace.";
+                mensaje = "✗ Ya Existe un Proyecto Similar";
                 tipoMensaje = "error";
             } else if (ConexionBD.insertarProyecto(nuevoProyecto)) {
                 // Guardar en la base de datos
