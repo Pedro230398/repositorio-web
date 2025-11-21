@@ -1,0 +1,57 @@
+Guía de funcionamiento - Base de datos (proyecto "mi-repositorio-web")
+
+Resumen rápido:
+- Motor: SQLite (archivo único: "repositorio.db" en la raíz del proyecto).
+- Acceso: desde Java usando JDBC y el driver org.xerial:sqlite-jdbc.
+- Clase responsable: com.repositorio.bd.ConexionBD (inicializa la BD y ofrece métodos CRUD).
+
+Esquema principal (tabla `proyectos`):
+- id INTEGER PRIMARY KEY AUTOINCREMENT
+- nombre_proyecto TEXT NOT NULL
+- autores TEXT NOT NULL
+- anio INTEGER NOT NULL
+- categoria TEXT NOT NULL
+- resumen TEXT NOT NULL
+- palabras_clave TEXT
+- enlaces TEXT
+- correo_contacto TEXT NOT NULL
+- fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+Flujo básico de funcionamiento:
+1) Inicialización: Las páginas JSP llaman a `ConexionBD.inicializarBD()` al cargar. Esto carga el driver JDBC, abre la conexión y crea la tabla `proyectos` si no existe.
+2) Operaciones CRUD (ejemplos):
+   - Crear: `ConexionBD.insertarProyecto(Proyecto)` valida duplicados y ejecuta INSERT.
+   - Leer: `ConexionBD.obtenerTodosLosProyectos()` devuelve todos los proyectos ordenados por fecha.
+   - Actualizar: `ConexionBD.actualizarProyecto(Proyecto)` realiza UPDATE por id.
+   - Eliminar: `ConexionBD.deleteProyecto(int id)` o `eliminarProyecto(int id)` realizan DELETE por id.
+3) Validaciones: antes de insertar se usa `existeProyectoDuplicado(nombre, anio, enlace)` para evitar duplicados exactos.
+
+Comandos útiles (PowerShell / sqlite3):
+- Ver tablas: `sqlite3 repositorio.db ".tables"`
+- Ver esquema: `sqlite3 repositorio.db ".schema proyectos"`
+- Consultar conteo: `sqlite3 repositorio.db "SELECT COUNT(*) FROM proyectos;"`
+- Exportar CSV: `sqlite3 -header -csv repositorio.db "SELECT * FROM proyectos;" > proyectos.csv`
+
+Backup y restauración:
+- Copia simple (archivo): `Copy-Item .\repositorio.db .\backups\repositorio.db.bak -Force`
+- Dump SQL: `sqlite3 repositorio.db .dump > repositorio_dump.sql`
+- Restaurar desde dump: `sqlite3 repositorio.db < repositorio_dump.sql`
+- Recomendación: mantener backups periódicos y no borrar `repositorio.db` sin respaldo.
+
+Consideraciones y buenas prácticas:
+- Concurrencia: SQLite usa bloqueo de archivo para escrituras. Para mejorar concurrencia se puede activar WAL:
+  `PRAGMA journal_mode = WAL;` (ejecutar al abrir la conexión).
+- Rendimiento: mantener transacciones cortas y evitar operaciones largas dentro de la conexión.
+- Seguridad: no exponer el archivo `repositorio.db` públicamente; proteger acceso al servidor y a Tomcat; agregar autenticación para operaciones destructivas (borrar/editar).
+- Producción: para tráfico alto, migrar a un RDBMS cliente-servidor (Postgres/MySQL) y usar pool de conexiones (HikariCP).
+
+Ubicación de archivos relevantes en el proyecto:
+- `repositorio.db` (archivo de la BD) — raíz del repo.
+- `src/main/java/com/repositorio/bd/ConexionBD.java` — lógica de conexión y CRUD.
+- `src/main/java/com/repositorio/modelo/Proyecto.java` — modelo de datos.
+- `src/main/webapp/*.jsp` — JSPs que consumen los métodos de `ConexionBD`.
+
+Contacto:
+- Si necesitas que agregue instrucciones más detalladas, scripts de backup automático o que aplique `PRAGMA journal_mode=WAL` en `ConexionBD`, dímelo y lo implemento.
+
+Fin de la guía básica.
