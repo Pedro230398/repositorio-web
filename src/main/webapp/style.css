@@ -134,6 +134,34 @@ body {
     gap: 20px;
 }
 
+/* Filas del formulario con dos columnas simétricas */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Columna individual dentro de una fila */
+.form-col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Campo de formulario full width (para resumen) */
+.form-full {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor de botones */
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
