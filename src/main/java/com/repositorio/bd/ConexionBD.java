@@ -69,6 +69,7 @@ public class ConexionBD {
     public static Connection getConexion() {
         try {
             // Verificar si la conexión existe y está abierta
+            // NOTA (comentario): Este método devuelve la conexión activa; si no existe crea una nueva.
             if (conexion == null || conexion.isClosed()) {
                 // Recargar driver
                 Class.forName("org.sqlite.JDBC");
@@ -250,7 +251,9 @@ public class ConexionBD {
     public static boolean insertarProyecto(Proyecto proyecto) {
         // VALIDACIÓN: Verificar si ya existe un proyecto con la misma tripleta
         // (nombre, anio, enlace). Solo se considera duplicado si los tres coinciden.
+        // Nota: validación previa para evitar insertar duplicados exactos (nombre+anio+enlace)
         if (existeProyectoDuplicado(proyecto.getNombreProyecto(), proyecto.getAnio(), proyecto.getEnlaces())) {
+            // Comentario: se detectó duplicado y se evita la inserción
             System.err.println("Error: Ya Existe un Proyecto Similar");
             return false;
         }
@@ -294,8 +297,9 @@ public class ConexionBD {
         // SQL con ORDER BY para ordenar por fecha descendente (más recientes primero)
         String sql = "SELECT * FROM proyectos ORDER BY fecha_registro DESC";
 
+        // Nota: ejecutar SELECT y mapear filas a objetos Proyecto
         try (Statement stmt = getConexion().createStatement();
-                ResultSet rs = stmt.executeQuery(sql)) {
+            ResultSet rs = stmt.executeQuery(sql)) {
 
             // Recorrer cada fila del resultado
             while (rs.next()) {
@@ -342,6 +346,7 @@ public class ConexionBD {
         // SQL para buscar un proyecto por ID
         String sql = "SELECT * FROM proyectos WHERE id = ?";
 
+        // Nota: recuperar un proyecto por su ID
         try (PreparedStatement pstmt = getConexion().prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -421,6 +426,7 @@ public class ConexionBD {
         // SQL para eliminar proyecto por ID
         String sql = "DELETE FROM proyectos WHERE id = ?";
 
+        // Nota: eliminar proyecto por id (operación destructiva)
         try (PreparedStatement pstmt = getConexion().prepareStatement(sql)) {
             pstmt.setInt(1, id);
             int filasAfectadas = pstmt.executeUpdate();
@@ -446,6 +452,7 @@ public class ConexionBD {
         // SQL con WHERE para filtrar por categoría
         String sql = "SELECT * FROM proyectos WHERE categoria = ? ORDER BY fecha_registro DESC";
 
+        // Nota: filtrar proyectos por categoría y mapear resultados
         try (PreparedStatement pstmt = getConexion().prepareStatement(sql)) {
             pstmt.setString(1, categoria);
             ResultSet rs = pstmt.executeQuery();
@@ -490,6 +497,7 @@ public class ConexionBD {
     public static boolean deleteProyecto(int id) {
         try {
             String sql = "DELETE FROM proyectos WHERE id = ?";
+            // Nota: preparación de sentencia usando la conexión compartida
             PreparedStatement stmt = conexion.prepareStatement(sql);
             stmt.setInt(1, id);
 

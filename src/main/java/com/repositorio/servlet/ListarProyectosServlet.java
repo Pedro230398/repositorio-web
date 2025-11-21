@@ -17,7 +17,8 @@ public class ListarProyectosServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        // Inicializar la base de datos al cargar el servlet
+        // Nota: Se inicializa la BD cuando se inicia el servlet (prepara tabla/conexión)
+        // Comentario no funcional: esta llamada garantiza que la tabla exista antes de manejar peticiones
         ConexionBD.inicializarBD();
     }
     
@@ -25,7 +26,8 @@ public class ListarProyectosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        // Obtener todos los proyectos
+        // Nota: manejar GET -> obtener lista de proyectos y reenviar a JSP
+        // Comentario: la lógica aquí es solo de presentación, no modifica la BD
         List<Proyecto> proyectos = ConexionBD.obtenerTodosLosProyectos();
         
         // Pasar la lista a la solicitud
