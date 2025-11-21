@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
+<%--
+    Archivo: index.jsp
+    Propósito: Página de inicio del repositorio — enlaces a los módulos principales
+    (Proyectos Comunitarios y Material Bibliográfico). Contiene navegación y
+    contenido introductorio. No realiza operaciones de BD.
+--%>
 <!DOCTYPE html>
 <html lang="es">
 <head>

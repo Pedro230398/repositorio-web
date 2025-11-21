@@ -13,6 +13,15 @@
     request.setAttribute("proyectos", proyectos);
 %>
 
+<!--
+    Archivo: proyectos.jsp
+    Propósito: Mostrar el listado de proyectos registrados en la base de datos,
+    permitir la eliminación de un proyecto y enlazar al formulario de creación.
+    Se muestran mensajes de éxito/error mediante parámetros URL (por ejemplo,
+    ?mensaje=eliminado o ?mensaje=error) y se usan etiquetas JSTL para renderizar
+    la lista y controlar la lógica de vista.
+-->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

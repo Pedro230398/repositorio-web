@@ -27,3 +27,10 @@
         response.sendRedirect("proyectos.jsp");
     }
 %>
+
+<%--
+    Archivo: eliminar-proyecto.jsp
+    Propósito: Recibe POST del formulario de eliminación, convierte el ID y
+    llama a `ConexionBD.deleteProyecto(id)`. Redirige a `proyectos.jsp` con
+    parámetros `mensaje` para indicar resultado (eliminado/error).
+--%>

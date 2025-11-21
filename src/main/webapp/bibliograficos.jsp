@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
+<%--
+    Archivo: bibliograficos.jsp
+    Propósito: Mostrar recursos bibliográficos y ejemplos de documentos.
+    Incluye un script que obtiene la hora actual desde `obtener-hora.jsp`
+    para mostrar la fecha/hora de acceso en el pie de página.
+--%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -56,15 +63,6 @@
         <p>
             © 2025 Repositorio Académico Estudiantil. Prototipo Funcional.
             | Fecha de Acceso: <span id="horaVenezuela">Cargando...</span>
-        </p>
-    </footer>
-            | Fecha de Acceso: 
-            <% 
-                java.time.ZoneId zonaVenezuela = java.time.ZoneId.of("America/Caracas");
-                java.time.ZonedDateTime fechaVenezuela = java.time.ZonedDateTime.now(zonaVenezuela);
-                java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
-                out.print(fechaVenezuela.format(formato)); 
-            %>
         </p>
     </footer>
 </body>

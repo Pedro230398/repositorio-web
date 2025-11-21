@@ -71,6 +71,13 @@
     }
 %>
 
+<%--
+    Archivo: guardar-proyecto.jsp
+    Propósito: Página intermedia de confirmación que procesa los datos enviados
+    por el formulario (puede usarse como alternativa a `agregar-proyecto.jsp`),
+    muestra mensajes de éxito/error y ofrece enlace de retorno al listado.
+--%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

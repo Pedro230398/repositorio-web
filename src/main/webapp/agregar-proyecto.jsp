@@ -74,6 +74,14 @@
     }
 %>
 
+<%--
+    Archivo: agregar-proyecto.jsp
+    Propósito: Formulario para crear un nuevo proyecto. Recibe POST con los
+    parámetros del formulario, valida campos obligatorios y llama a la capa
+    de persistencia (`ConexionBD`) para insertar el proyecto tras validar
+    la unicidad por nombre+anio+enlace.
+--%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
