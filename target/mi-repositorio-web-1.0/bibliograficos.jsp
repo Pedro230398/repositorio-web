@@ -7,6 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo Material Bibliográfico</title>
     <link rel="stylesheet" href="<c:url value='/style.css'/>">
+    <script>
+        function actualizarHoraVenezuela() {
+            fetch('obtener-hora.jsp')
+                .then(response => response.text())
+                .then(hora => {
+                    document.getElementById('horaVenezuela').textContent = hora;
+                })
+                .catch(error => console.error('Error al obtener la hora:', error));
+        }
+        
+        // Actualizar la hora al cargar la página
+        window.addEventListener('load', function() {
+            actualizarHoraVenezuela();
+            // Actualizar cada segundo
+            setInterval(actualizarHoraVenezuela, 1000);
+        });
+    </script>
 </head>
 <body>
     <header class="header">
@@ -38,10 +55,15 @@
     <footer class="footer">
         <p>
             © 2025 Repositorio Académico Estudiantil. Prototipo Funcional.
+            | Fecha de Acceso: <span id="horaVenezuela">Cargando...</span>
+        </p>
+    </footer>
             | Fecha de Acceso: 
             <% 
-                java.util.Date fecha = new java.util.Date();
-                out.print(fecha); 
+                java.time.ZoneId zonaVenezuela = java.time.ZoneId.of("America/Caracas");
+                java.time.ZonedDateTime fechaVenezuela = java.time.ZonedDateTime.now(zonaVenezuela);
+                java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
+                out.print(fechaVenezuela.format(formato)); 
             %>
         </p>
     </footer>

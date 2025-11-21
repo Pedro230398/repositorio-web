@@ -1,0 +1,3 @@
+com\repositorio\servlet\ListarProyectosServlet.class
+com\repositorio\bd\ConexionBD.class
+com\repositorio\modelo\Proyecto.class
