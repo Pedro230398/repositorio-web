@@ -475,6 +475,29 @@ public class ConexionBD {
     }
     
     /**
+     * MÉTODO: deleteProyecto(int id)
+     * FUNCIÓN: Eliminar un proyecto de la BD por su ID
+     * PARÁMETRO: id - Identificador único del proyecto a eliminar
+     * RETORNA: boolean - true si se eliminó correctamente, false si hubo error
+     * USO: Cuando el usuario desea borrar un proyecto que agregó por error
+     */
+    public static boolean deleteProyecto(int id) {
+        try {
+            String sql = "DELETE FROM proyectos WHERE id = ?";
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setInt(1, id);
+            
+            int filasAfectadas = stmt.executeUpdate();
+            stmt.close();
+            
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar proyecto: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
      * MÉTODO: cerrarConexion()
      * FUNCIÓN: Cerrar la conexión a la BD (LIMPIEZA)
      * USO: Se llama cuando se termina de usar la aplicación
