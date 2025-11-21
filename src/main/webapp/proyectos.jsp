@@ -56,7 +56,7 @@
                     <select id="categoria" name="categoria" required>
                         <option value="">-- Selecciona una categoría --</option>
                         <option value="Proyecto">Proyecto</option>
-                        <option value="Tesis">Tesis</option>
+                        <option value="Trabajo Especial Grado">Trabajo Especial Grado</option>
                         <option value="Investigación">Investigación</option>
                         <option value="Iniciativa Comunitaria">Iniciativa Comunitaria</option>
                         <option value="Otro">Otro</option>

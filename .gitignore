@@ -1,0 +1,7 @@
+﻿target/
+repositorio.db
+*.log
+.idea/
+*.class
+*.war
+*.iml

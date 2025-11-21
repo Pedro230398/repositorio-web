@@ -45,8 +45,12 @@
                 correoContacto.trim()
             );
             
-            // Guardar en la base de datos
-            if (ConexionBD.insertarProyecto(nuevoProyecto)) {
+            // Validar unicidad por TRIPLETA: nombre + año + enlace
+            if (ConexionBD.existeProyectoDuplicado(nombreProyecto.trim(), anio, nuevoProyecto.getEnlaces())) {
+                mensaje = "✗ Error: Ya existe un proyecto con el mismo nombre, año y enlace.";
+                tipoMensaje = "error";
+            } else if (ConexionBD.insertarProyecto(nuevoProyecto)) {
+                // Guardar en la base de datos
                 mensaje = "✓ Proyecto guardado exitosamente en la base de datos.";
                 tipoMensaje = "exito";
             } else {
