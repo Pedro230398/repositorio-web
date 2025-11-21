@@ -75,7 +75,8 @@ public class Proyecto implements Serializable {
         this.fechaRegistro = LocalDateTime.now();
     }
 
-    // Nota: Constructor vacío para frameworks que necesitan instanciación sin parámetros
+    // Nota: Constructor vacío para frameworks que necesitan instanciación sin
+    // parámetros
 
     // ========== GETTER Y SETTER: id ==========
     // FUNCIÓN: Obtener el identificador único del proyecto

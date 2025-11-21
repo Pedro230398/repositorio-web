@@ -69,7 +69,8 @@ public class ConexionBD {
     public static Connection getConexion() {
         try {
             // Verificar si la conexión existe y está abierta
-            // NOTA (comentario): Este método devuelve la conexión activa; si no existe crea una nueva.
+            // NOTA (comentario): Este método devuelve la conexión activa; si no existe crea
+            // una nueva.
             if (conexion == null || conexion.isClosed()) {
                 // Recargar driver
                 Class.forName("org.sqlite.JDBC");
@@ -251,7 +252,8 @@ public class ConexionBD {
     public static boolean insertarProyecto(Proyecto proyecto) {
         // VALIDACIÓN: Verificar si ya existe un proyecto con la misma tripleta
         // (nombre, anio, enlace). Solo se considera duplicado si los tres coinciden.
-        // Nota: validación previa para evitar insertar duplicados exactos (nombre+anio+enlace)
+        // Nota: validación previa para evitar insertar duplicados exactos
+        // (nombre+anio+enlace)
         if (existeProyectoDuplicado(proyecto.getNombreProyecto(), proyecto.getAnio(), proyecto.getEnlaces())) {
             // Comentario: se detectó duplicado y se evita la inserción
             System.err.println("Error: Ya Existe un Proyecto Similar");
@@ -299,7 +301,7 @@ public class ConexionBD {
 
         // Nota: ejecutar SELECT y mapear filas a objetos Proyecto
         try (Statement stmt = getConexion().createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+                ResultSet rs = stmt.executeQuery(sql)) {
 
             // Recorrer cada fila del resultado
             while (rs.next()) {
