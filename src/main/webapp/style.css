@@ -134,6 +134,12 @@ body {
     gap: 20px;
 }
 
+/* Centrar el formulario y limitar ancho para mejor alineación */
+.add-project-section .project-form {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 /* Filas del formulario con dos columnas simétricas */
 .form-row {
     display: grid;
@@ -237,6 +243,47 @@ body {
 
 .project-form button {
     flex: 0 1 auto;
+}
+
+/* Temas de botones para que coincidan en forma con `enlace-volver` pero en colores distintos */
+.btn-theme {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Verde manzana (Guardar) */
+.btn-guardar {
+    background-color: #7ED957; /* verde manzana */
+    color: #0b3a00;
+}
+.btn-guardar:hover {
+    background-color: #66c341;
+    color: white;
+}
+
+/* Rojo claro (Limpiar) */
+.btn-limpiar {
+    background-color: #ff7f7f; /* rojo claro */
+    color: #5a0000;
+}
+.btn-limpiar:hover {
+    background-color: #e06a6a;
+    color: white;
+}
+
+/* Asegurar que los botones compartan altura y padding coherente */
+.form-buttons .btn-theme,
+.form-buttons .btn-submit,
+.form-buttons .btn-reset,
+.form-buttons .enlace-volver {
+    padding: 10px 18px;
+    border-radius: 5px;
 }
 
 /* Responsive */

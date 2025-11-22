@@ -206,8 +206,8 @@
 
                 <!-- Botones -->
                 <div class="form-buttons">
-                    <button type="submit" class="btn-submit">Guardar Proyecto</button>
-                    <button type="reset" class="btn-reset">Limpiar Formulario</button>
+                    <button type="submit" class="btn-submit btn-theme btn-guardar">Guardar Proyecto</button>
+                    <button type="reset" class="btn-reset btn-theme btn-limpiar">Limpiar Formulario</button>
                     <a href="proyectos.jsp" class="enlace-volver">← Volver a Proyectos</a>
                 </div>
             </form>
