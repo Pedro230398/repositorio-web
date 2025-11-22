@@ -234,17 +234,6 @@ body {
     background-color: #777;
 }
 
-/* Contenedor de botones lado a lado */
-.project-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.project-form button {
-    flex: 0 1 auto;
-}
-
 /* Temas de botones para que coincidan en forma con `enlace-volver` pero en colores distintos */
 .btn-theme {
     display: inline-block;
@@ -288,12 +277,13 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .project-form {
+    .form-buttons {
         flex-direction: column;
     }
     
-    .project-form button {
-        flex: 1 1 100%;
+    .form-buttons button,
+    .form-buttons a {
+        width: 100%;
     }
 }
 

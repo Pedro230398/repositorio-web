@@ -123,90 +123,6 @@ public class ConexionBD {
     }
 
     /**
-     * MÉTODO: existeNombreProyecto(String nombre)
-     * FUNCIÓN: Validar que el nombre del proyecto sea ÚNICO (no exista otro igual)
-     * PARÁMETRO: nombre - Nombre del proyecto a verificar
-     * RETORNA: boolean - true si existe, false si no existe
-     * VALIDACIÓN: Evita que se repitan nombres de proyectos
-     */
-    public static boolean existeNombreProyecto(String nombre) {
-        // Query SQL que cuenta cuántos proyectos tienen ese nombre
-        String sql = "SELECT COUNT(*) FROM proyectos WHERE nombre_proyecto = ?";
-
-        try (PreparedStatement pstmt = getConexion().prepareStatement(sql)) {
-            // ? es un parámetro seguro contra SQL injection
-            pstmt.setString(1, nombre);
-            // Ejecutar query
-            ResultSet rs = pstmt.executeQuery();
-
-            // Si encuentra registro, retorna true (existe)
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al verificar nombre: " + e.getMessage());
-        }
-
-        return false; // No existe
-    }
-
-    /**
-     * MÉTODO: existeAnio(int anio)
-     * FUNCIÓN: Validar que el AÑO sea ÚNICO (no exista otro proyecto del mismo año)
-     * PARÁMETRO: anio - Año a verificar
-     * RETORNA: boolean - true si existe, false si no existe
-     * VALIDACIÓN: Evita que se repitan años
-     */
-    public static boolean existeAnio(int anio) {
-        // Query que cuenta proyectos del mismo año
-        String sql = "SELECT COUNT(*) FROM proyectos WHERE anio = ?";
-
-        try (PreparedStatement pstmt = getConexion().prepareStatement(sql)) {
-            pstmt.setInt(1, anio);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al verificar año: " + e.getMessage());
-        }
-
-        return false;
-    }
-
-    /**
-     * MÉTODO: existeEnlace(String enlace)
-     * FUNCIÓN: Validar que el ENLACE sea ÚNICO (no exista otro igual)
-     * PARÁMETRO: enlace - URL a verificar
-     * RETORNA: boolean - true si existe, false si no existe
-     * ESPECIAL: Los enlaces vacíos SIEMPRE retornan false (permiten duplicados)
-     * VALIDACIÓN: Evita que se repitan enlaces de recursos
-     */
-    public static boolean existeEnlace(String enlace) {
-        // Si el enlace está vacío, permitir múltiples proyectos sin enlace
-        if (enlace == null || enlace.isEmpty()) {
-            return false; // No validar enlaces vacíos
-        }
-
-        // Query que cuenta proyectos con ese enlace
-        String sql = "SELECT COUNT(*) FROM proyectos WHERE enlaces = ?";
-
-        try (PreparedStatement pstmt = getConexion().prepareStatement(sql)) {
-            pstmt.setString(1, enlace);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al verificar enlace: " + e.getMessage());
-        }
-
-        return false;
-    }
-
-    /**
      * MÉTODO: existeProyectoDuplicado(String nombre, int anio, String enlace)
      * FUNCIÓN: Verificar si ya existe un proyecto con la misma combinación
      * (nombre, año, enlace). Sólo retorna true si los tres coinciden.
@@ -418,28 +334,6 @@ public class ConexionBD {
     }
 
     /**
-     * MÉTODO: eliminarProyecto(int id)
-     * FUNCIÓN: Eliminar un proyecto de la BD (DELETE)
-     * PARÁMETRO: id - ID del proyecto a eliminar
-     * RETORNA: boolean - true si se eliminó, false si falló
-     * ADVERTENCIA: Esta operación es permanente e irreversible
-     */
-    public static boolean eliminarProyecto(int id) {
-        // SQL para eliminar proyecto por ID
-        String sql = "DELETE FROM proyectos WHERE id = ?";
-
-        // Nota: eliminar proyecto por id (operación destructiva)
-        try (PreparedStatement pstmt = getConexion().prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            int filasAfectadas = pstmt.executeUpdate();
-            return filasAfectadas > 0;
-        } catch (SQLException e) {
-            System.err.println("Error al eliminar proyecto: " + e.getMessage());
-            return false;
-        }
-    }
-
-    /**
      * MÉTODO: obtenerProyectosPorCategoria(String categoria)
      * FUNCIÓN: Obtener todos los proyectos de una CATEGORÍA específica (READ BY
      * CATEGORY)
@@ -497,15 +391,11 @@ public class ConexionBD {
      * USO: Cuando el usuario desea borrar un proyecto que agregó por error
      */
     public static boolean deleteProyecto(int id) {
-        try {
-            String sql = "DELETE FROM proyectos WHERE id = ?";
-            // Nota: preparación de sentencia usando la conexión compartida
-            PreparedStatement stmt = conexion.prepareStatement(sql);
+        String sql = "DELETE FROM proyectos WHERE id = ?";
+        
+        try (PreparedStatement stmt = getConexion().prepareStatement(sql)) {
             stmt.setInt(1, id);
-
             int filasAfectadas = stmt.executeUpdate();
-            stmt.close();
-
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.err.println("Error al eliminar proyecto: " + e.getMessage());
